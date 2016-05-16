@@ -1,8 +1,10 @@
-<?php namespace App\Modules\Media\Models;
+<?php
+
+namespace App\Modules\Media\Models;
 
 use Dimsav\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Model;
-use Modules\Media\ValueObjects\MediaPath;
+use App\Modules\Media\Library\ValueObjects\MediaPath;
 
 /**
  * Class File

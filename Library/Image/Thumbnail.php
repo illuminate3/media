@@ -1,4 +1,7 @@
-<?php namespace App\Modules\Media\Image;
+<?php
+
+namespace App\Modules\Media\Library\Image;
+
 
 class Thumbnail
 {

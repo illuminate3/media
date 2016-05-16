@@ -1,8 +1,11 @@
-<?php namespace App\Modules\Media\Image;
+<?php
+
+namespace App\Modules\Media\Library\Image;
 
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
-use Modules\Media\Image\Intervention\InterventionFactory;
+use App\Modules\Media\Library\Image\Intervention\InterventionFactory;
+
 
 class ImageServiceProvider extends ServiceProvider
 {

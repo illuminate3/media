@@ -1,6 +1,8 @@
-<?php namespace App\Modules\Media\Repositories;
+<?php
 
-use Modules\Core\Repositories\BaseRepository;
+namespace App\Modules\Media\Repositories;
+
+use App\Modules\Core\Repositories\Base\BaseRepository;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 interface FileRepository extends BaseRepository

@@ -1,12 +1,15 @@
-<?php namespace App\Modules\Media\Providers;
+<?php
+
+namespace App\Modules\Media\Providers;
 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 use Modules\Media\Console\RefreshThumbnailCommand;
 use App\Modules\Media\Http\Models\File;
-use Modules\Media\Repositories\Eloquent\EloquentFileRepository;
-use Modules\Media\Repositories\FileRepository;
+use App\Modules\Media\Http\Repositories\Eloquent\EloquentFileRepository;
+use App\Modules\Media\Http\Repositories\FileRepository;
 use Modules\Media\Validators\MaxFolderSizeValidator;
+
 
 class MediaServiceProvider extends ServiceProvider
 {

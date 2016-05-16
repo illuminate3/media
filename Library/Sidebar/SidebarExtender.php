@@ -1,9 +1,12 @@
-<?php namespace App\Modules\Media\Sidebar;
+<?php
+
+namespace App\Modules\Media\Sidebar;
 
 use Maatwebsite\Sidebar\Group;
 use Maatwebsite\Sidebar\Item;
 use Maatwebsite\Sidebar\Menu;
 use Modules\Core\Contracts\Authentication;
+
 
 class SidebarExtender implements \Maatwebsite\Sidebar\SidebarExtender
 {

@@ -1,6 +1,9 @@
-<?php namespace App\Modules\Media\ValueObjects;
+<?php
+
+namespace App\Modules\Media\Library\ValueObjects;
 
 use Modules\Media\UrlResolvers\BaseUrlResolver;
+
 
 class MediaPath
 {

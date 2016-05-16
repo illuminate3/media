@@ -1,11 +1,14 @@
-<?php namespace App\Modules\Media\Image;
+<?php
+
+namespace App\Modules\Media\Library\Image;
 
 use GuzzleHttp\Mimetypes;
 use GuzzleHttp\Psr7\Stream;
 use Illuminate\Contracts\Filesystem\Factory;
 use Intervention\Image\ImageManager;
 use App\Modules\Media\Http\Models\File;
-use Modules\Media\ValueObjects\MediaPath;
+use App\Modules\Media\Library\ValueObjects\MediaPath;
+
 
 class Imagy
 {

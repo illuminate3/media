@@ -1,10 +1,13 @@
-<?php namespace App\Modules\Media\Http\Controllers\Admin;
+<?php
 
-use Modules\Core\Http\Controllers\Admin\AdminBaseController;
-use Modules\Media\Image\ThumbnailsManager;
-use Modules\Media\Repositories\FileRepository;
+namespace App\Modules\Media\Http\Controllers;
 
-class MediaGridController extends AdminBaseController
+//use Modules\Core\Http\Controllers\Admin\AdminBaseController;
+use App\Modules\Media\Library\Image\ThumbnailsManager;
+use App\Modules\Media\Http\Repositories\FileRepository;
+
+
+class MediaGridController extends FilexController
 {
     /**
      * @var FileRepository

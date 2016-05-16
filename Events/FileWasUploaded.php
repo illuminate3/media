@@ -1,6 +1,9 @@
-<?php namespace App\Modules\Media\Events;
+<?php
+
+namespace App\Modules\Media\Events;
 
 use App\Modules\Media\Http\Models\File;
+
 
 class FileWasUploaded
 {

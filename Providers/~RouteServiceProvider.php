@@ -1,6 +1,9 @@
-<?php namespace App\Modules\Media\Providers;
+<?php
+
+namespace App\Modules\Media\Providers;
 
 use Modules\Core\Providers\RoutingServiceProvider as CoreRoutingServiceProvider;
+
 
 class RouteServiceProvider extends CoreRoutingServiceProvider
 {

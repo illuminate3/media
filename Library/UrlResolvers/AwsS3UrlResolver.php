@@ -1,6 +1,9 @@
-<?php namespace App\Modules\Media\UrlResolvers;
+<?php
+
+namespace App\Modules\Media\Library\UrlResolvers;
 
 use League\Flysystem\AwsS3v3\AwsS3Adapter;
+
 
 class AwsS3UrlResolver
 {

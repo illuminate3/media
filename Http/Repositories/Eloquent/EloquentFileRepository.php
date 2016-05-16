@@ -1,11 +1,14 @@
-<?php namespace App\Modules\Media\Repositories\Eloquent;
+<?php
+
+namespace App\Modules\Media\Repositories\Eloquent;
 
 use Illuminate\Database\Eloquent\Collection;
-use Modules\Core\Repositories\Eloquent\EloquentBaseRepository;
+use App\Modules\Core\Repositories\Base\Eloquent\EloquentBaseRepository;
 use App\Modules\Media\Http\Models\File;
-use Modules\Media\Helpers\FileHelper;
-use Modules\Media\Repositories\FileRepository;
+use App\Modules\Media\Library\Helpers\FileHelper;
+use App\Modules\Media\Http\Repositories\FileRepository;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 
 class EloquentFileRepository extends EloquentBaseRepository implements FileRepository
 {

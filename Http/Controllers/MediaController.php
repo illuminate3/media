@@ -1,14 +1,18 @@
-<?php namespace App\Modules\Media\Http\Controllers\Admin;
+<?php
+
+namespace App\Modules\Media\Http\Controllers;
+
+//use Modules\Core\Http\Controllers\Admin\AdminBaseController;
 
 use Illuminate\Contracts\Config\Repository;
-use Modules\Core\Http\Controllers\Admin\AdminBaseController;
 use App\Modules\Media\Http\Models\File;
-use Modules\Media\Http\Requests\UpdateMediaRequest;
-use Modules\Media\Image\Imagy;
-use Modules\Media\Image\ThumbnailsManager;
-use Modules\Media\Repositories\FileRepository;
+use App\Modules\Media\Http\Requests\UpdateMediaRequest;
+use App\Modules\Media\Library\Image\Imagy;
+use App\Modules\Media\Library\Image\ThumbnailsManager;
+use App\Modules\Media\Http\Repositories\FileRepository;
 
-class MediaController extends AdminBaseController
+
+class MediaController extends FilexController
 {
     /**
      * @var FileRepository

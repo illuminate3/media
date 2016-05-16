@@ -1,6 +1,9 @@
-<?php namespace App\Modules\Media\Http\Requests;
+<?php
+
+namespace App\Modules\Media\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+
 
 class UploadMediaRequest extends FormRequest
 {

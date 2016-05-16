@@ -1,7 +1,10 @@
-<?php namespace App\Modules\Media\Database\Seeders;
+<?php
+
+namespace App\Modules\Media\Database\Seeders;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
+
 
 class MediaDatabaseSeeder extends Seeder
 {

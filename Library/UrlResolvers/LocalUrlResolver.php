@@ -1,6 +1,9 @@
-<?php namespace App\Modules\Media\UrlResolvers;
+<?php
+
+namespace App\Modules\Media\Library\UrlResolvers;
 
 use League\Flysystem\Adapter\Local;
+
 
 class LocalUrlResolver
 {

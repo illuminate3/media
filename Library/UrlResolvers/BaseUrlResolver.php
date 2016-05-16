@@ -1,8 +1,11 @@
-<?php namespace App\Modules\Media\UrlResolvers;
+<?php
+
+namespace App\Modules\Media\Library\UrlResolvers;
 
 use Illuminate\Contracts\Filesystem\Factory;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\AwsS3v3\AwsS3Adapter;
+
 
 class BaseUrlResolver
 {

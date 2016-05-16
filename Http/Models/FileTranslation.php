@@ -1,6 +1,9 @@
-<?php namespace App\Modules\Media\Models;
+<?php
+
+namespace App\Modules\Media\Models;
 
 use Illuminate\Database\Eloquent\Model;
+
 
 class FileTranslation extends Model
 {

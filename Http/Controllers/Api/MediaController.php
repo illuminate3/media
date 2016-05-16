@@ -1,19 +1,26 @@
-<?php namespace App\Modules\Media\Http\Controllers\Api;
+<?php
 
-use Illuminate\Http\Request;
+namespace App\Modules\Media\Http\Controllers\Api;
+
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
-use Modules\Media\Events\FileWasLinked;
-use Modules\Media\Events\FileWasUnlinked;
-use Modules\Media\Events\FileWasUploaded;
-use Modules\Media\Http\Requests\UploadMediaRequest;
-use Modules\Media\Image\Imagy;
-use Modules\Media\Repositories\FileRepository;
+
+use App\Modules\Media\Http\Repositories\FileRepository;
+
+use Illuminate\Http\Request;
+use App\Modules\Media\Http\Requests\UploadMediaRequest;
+
+use App\Modules\Media\Events\FileWasLinked;
+use App\Modules\Media\Events\FileWasUnlinked;
+use App\Modules\Media\Events\FileWasUploaded;
+
+use App\Modules\Media\Library\Image\Imagy;
+
 use Modules\Media\Services\FileService;
 
-class MediaController extends Controller
-{
+
+class MediaController extends Controller {
     /**
      * @var FileService
      */

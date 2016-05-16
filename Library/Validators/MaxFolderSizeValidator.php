@@ -1,8 +1,11 @@
-<?php namespace App\Modules\Media\Validators;
+<?php
+
+namespace App\Modules\Media\Library\Validators;
 
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 
 class MaxFolderSizeValidator
 {

@@ -1,11 +1,14 @@
-<?php namespace App\Modules\Media\Jobs;
+<?php
+
+namespace App\Modules\Media\Jobs;
 
 use App\Jobs\Job;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Modules\Media\ValueObjects\MediaPath;
+use App\Modules\Media\Library\ValueObjects\MediaPath;
+
 
 class CreateThumbnails extends Job implements SelfHandling, ShouldQueue
 {

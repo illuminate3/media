@@ -1,11 +1,16 @@
-<?php namespace App\Modules\Media\Services;
+<?php
+
+namespace App\Modules\Media\Services;
 
 use Illuminate\Contracts\Filesystem\Factory;
 use Illuminate\Foundation\Bus\DispatchesJobs;
+
 use App\Modules\Media\Http\Models\File;
-use Modules\Media\Jobs\CreateThumbnails;
-use Modules\Media\Repositories\FileRepository;
+
+use App\Modules\Media\Jobs\CreateThumbnails;
+use App\Modules\Media\Http\Repositories\FileRepository;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 
 class FileService
 {

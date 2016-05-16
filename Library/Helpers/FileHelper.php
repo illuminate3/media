@@ -1,6 +1,9 @@
-<?php namespace App\Modules\Media\Helpers;
+<?php
+
+namespace App\Modules\Media\Helpers;
 
 use Illuminate\Support\Str;
+
 
 class FileHelper
 {

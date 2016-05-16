@@ -1,6 +1,9 @@
-<?php namespace App\Modules\Media\Image\Intervention\Manipulations;
+<?php
 
-use Modules\Media\Image\ImageHandlerInterface;
+namespace App\Modules\Media\Library\Image\Intervention\Manipulations;
+
+use App\Modules\Media\Library\Image\ImageHandlerInterface;
+
 
 class Orientate implements ImageHandlerInterface
 {

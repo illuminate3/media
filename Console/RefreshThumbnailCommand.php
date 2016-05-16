@@ -1,9 +1,12 @@
-<?php namespace App\Modules\Media\Console;
+<?php
+
+namespace App\Modules\Media\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use Modules\Media\Jobs\RebuildThumbnails;
-use Modules\Media\Repositories\FileRepository;
+use App\Modules\Media\Jobs\RebuildThumbnails;
+use App\Modules\Media\Http\Repositories\FileRepository;
+
 
 class RefreshThumbnailCommand extends Command
 {

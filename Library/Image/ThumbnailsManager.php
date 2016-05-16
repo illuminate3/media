@@ -1,6 +1,9 @@
-<?php namespace App\Modules\Media\Image;
+<?php
+
+namespace App\Modules\Media\Library\Image;
 
 use Illuminate\Contracts\Config\Repository;
+
 
 class ThumbnailsManager
 {

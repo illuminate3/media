@@ -1,6 +1,9 @@
-<?php namespace App\Modules\Media\Image\Intervention;
+<?php
 
-use Modules\Media\Image\ImageFactoryInterface;
+namespace App\Modules\Media\Library\Image\Intervention;
+
+use App\Modules\Media\Library\Image\ImageFactoryInterface;
+
 
 class InterventionFactory implements ImageFactoryInterface
 {
