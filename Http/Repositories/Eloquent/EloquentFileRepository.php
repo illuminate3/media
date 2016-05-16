@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Media\Repositories\Eloquent;
+namespace App\Modules\Media\Http\Repositories\Eloquent;
 
 use Illuminate\Database\Eloquent\Collection;
 use App\Modules\Core\Repositories\Base\Eloquent\EloquentBaseRepository;

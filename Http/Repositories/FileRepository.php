@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Media\Repositories;
+namespace App\Modules\Media\Http\Repositories;
 
 use App\Modules\Core\Repositories\Base\BaseRepository;
 use Symfony\Component\HttpFoundation\File\UploadedFile;

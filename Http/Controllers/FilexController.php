@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Filex\Http\Controllers;
+namespace App\Modules\Media\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 

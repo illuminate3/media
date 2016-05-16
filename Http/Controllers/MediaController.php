@@ -14,99 +14,103 @@ use App\Modules\Media\Http\Repositories\FileRepository;
 
 class MediaController extends FilexController
 {
-    /**
-     * @var FileRepository
-     */
-    private $file;
-    /**
-     * @var Repository
-     */
-    private $config;
-    /**
-     * @var Imagy
-     */
-    private $imagy;
-    /**
-     * @var ThumbnailsManager
-     */
-    private $thumbnailsManager;
 
-    public function __construct(FileRepository $file, Repository $config, Imagy $imagy, ThumbnailsManager $thumbnailsManager)
-    {
-        parent::__construct();
-        $this->file = $file;
-        $this->config = $config;
-        $this->imagy = $imagy;
-        $this->thumbnailsManager = $thumbnailsManager;
-    }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index()
-    {
-        $files = $this->file->all();
+	/**
+	 * @var FileRepository
+	 */
+	private $file;
+	/**
+	 * @var Repository
+	 */
+	private $config;
+	/**
+	 * @var Imagy
+	 */
+	private $imagy;
+	/**
+	 * @var ThumbnailsManager
+	 */
+	private $thumbnailsManager;
 
-        $config = $this->config->get('asgard.media.config');
+	public function __construct(FileRepository $file, Repository $config, Imagy $imagy, ThumbnailsManager $thumbnailsManager)
+	{
+		parent::__construct();
+		$this->file = $file;
+		$this->config = $config;
+		$this->imagy = $imagy;
+		$this->thumbnailsManager = $thumbnailsManager;
+	}
 
-        return view('media::admin.index', compact('files', 'config'));
-    }
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return Response
+	 */
+	public function index()
+	{
+		$files = $this->file->all();
+dd($files);
+		$config = $this->config->get('asgard.media.config');
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        return view('media.create');
-    }
+		return view('media::admin.index', compact('files', 'config'));
+	}
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  File     $file
-     * @return Response
-     */
-    public function edit(File $file)
-    {
-        $thumbnails = $this->thumbnailsManager->all();
+	/**
+	 * Show the form for creating a new resource.
+	 *
+	 * @return Response
+	 */
+	public function create()
+	{
+		return view('media.create');
+	}
 
-        return view('media::admin.edit', compact('file', 'thumbnails'));
-    }
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  File     $file
+	 * @return Response
+	 */
+	public function edit(File $file)
+	{
+		$thumbnails = $this->thumbnailsManager->all();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  File               $file
-     * @param  UpdateMediaRequest $request
-     * @return Response
-     */
-    public function update(File $file, UpdateMediaRequest $request)
-    {
-        $this->file->update($file, $request->all());
+		return view('media::admin.edit', compact('file', 'thumbnails'));
+	}
 
-        flash(trans('media::messages.file updated'));
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  File               $file
+	 * @param  UpdateMediaRequest $request
+	 * @return Response
+	 */
+	public function update(File $file, UpdateMediaRequest $request)
+	{
+		$this->file->update($file, $request->all());
 
-        return redirect()->route('admin.media.media.index');
-    }
+		flash(trans('media::messages.file updated'));
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  File     $file
-     * @internal param int $id
-     * @return Response
-     */
-    public function destroy(File $file)
-    {
-        $this->imagy->deleteAllFor($file);
-        $this->file->destroy($file);
+		return redirect()->route('admin.media.media.index');
+	}
 
-        flash(trans('media::messages.file deleted'));
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  File     $file
+	 * @internal param int $id
+	 * @return Response
+	 */
+	public function destroy(File $file)
+	{
+		$this->imagy->deleteAllFor($file);
+		$this->file->destroy($file);
 
-        return redirect()->route('admin.media.media.index');
-    }
+		flash(trans('media::messages.file deleted'));
+
+		return redirect()->route('admin.media.media.index');
+	}
+
+
 }

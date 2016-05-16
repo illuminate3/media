@@ -4,7 +4,7 @@
 	"keywords": ["documents", "files", "images", "manager", "Rakko"],
 	"require": {
 		"laravel/framework": "5.1.*",
-		"dimsav/laravel-translatable": "~5.0",
+		"dimsav/laravel-translatable": "~5.0"
 	},
 	"config": {
 		"preferred-install": "dist"
