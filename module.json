@@ -1,0 +1,8 @@
+{
+	"name": "Media",
+	"slug": "media",
+	"version": "1.0",
+	"description": "Documents, Files and Images Manager",
+	"order": 1,
+	"enabled": true
+}
