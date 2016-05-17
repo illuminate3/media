@@ -7,24 +7,27 @@ use App\Modules\Media\Library\Image\ImageHandlerInterface;
 
 class Fit implements ImageHandlerInterface
 {
-    private $defaults = [
-        'width' => 100,
-        'height' => null,
-        'position' => 'center',
-    ];
 
-    /**
-     * Handle the image manipulation request
-     * @param  \Intervention\Image\Image $image
-     * @param  array                     $options
-     * @return \Intervention\Image\Image
-     */
-    public function handle($image, $options)
-    {
-        $options = array_merge($this->defaults, $options);
+	private $defaults = [
+		'width' => 100,
+		'height' => null,
+		'position' => 'center',
+	];
 
-        $callback = isset($options['callback']) ? $options['callback'] : null;
+	/**
+	 * Handle the image manipulation request
+	 * @param  \Intervention\Image\Image $image
+	 * @param  array                     $options
+	 * @return \Intervention\Image\Image
+	 */
+	public function handle($image, $options)
+	{
+		$options = array_merge($this->defaults, $options);
 
-        return $image->fit($options['width'], $options['height'], $callback, $options['position']);
-    }
+		$callback = isset($options['callback']) ? $options['callback'] : null;
+
+		return $image->fit($options['width'], $options['height'], $callback, $options['position']);
+	}
+
+
 }

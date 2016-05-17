@@ -9,44 +9,47 @@ use App\Modules\Media\Http\Repositories\FileRepository;
 
 class MediaGridController extends FilexController
 {
-    /**
-     * @var FileRepository
-     */
-    private $file;
-    /**
-     * @var ThumbnailsManager
-     */
-    private $thumbnailsManager;
 
-    public function __construct(FileRepository $file, ThumbnailsManager $thumbnailsManager)
-    {
-        parent::__construct();
+	/**
+	 * @var FileRepository
+	 */
+	private $file;
+	/**
+	 * @var ThumbnailsManager
+	 */
+	private $thumbnailsManager;
 
-        $this->file = $file;
-        $this->thumbnailsManager = $thumbnailsManager;
-    }
+	public function __construct(FileRepository $file, ThumbnailsManager $thumbnailsManager)
+	{
+		parent::__construct();
 
-    /**
-     * A grid view for the upload button
-     * @return \Illuminate\View\View
-     */
-    public function index()
-    {
-        $files = $this->file->all();
-        $thumbnails = $this->thumbnailsManager->all();
+		$this->file = $file;
+		$this->thumbnailsManager = $thumbnailsManager;
+	}
 
-        return view('media::admin.grid.general', compact('files', 'thumbnails'));
-    }
+	/**
+	 * A grid view for the upload button
+	 * @return \Illuminate\View\View
+	 */
+	public function index()
+	{
+		$files = $this->file->all();
+		$thumbnails = $this->thumbnailsManager->all();
 
-    /**
-     * A grid view of uploaded files used for the wysiwyg editor
-     * @return \Illuminate\View\View
-     */
-    public function ckIndex()
-    {
-        $files = $this->file->all();
-        $thumbnails = $this->thumbnailsManager->all();
+		return view('media::admin.grid.general', compact('files', 'thumbnails'));
+	}
 
-        return view('media::admin.grid.ckeditor', compact('files', 'thumbnails'));
-    }
+	/**
+	 * A grid view of uploaded files used for the wysiwyg editor
+	 * @return \Illuminate\View\View
+	 */
+	public function ckIndex()
+	{
+		$files = $this->file->all();
+		$thumbnails = $this->thumbnailsManager->all();
+
+		return view('media::admin.grid.ckeditor', compact('files', 'thumbnails'));
+	}
+
+
 }

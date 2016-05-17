@@ -7,23 +7,26 @@ use Illuminate\Support\Str;
 
 class FileHelper
 {
-    public static function slug($name)
-    {
-        $extension = self::getExtension($name);
-        $name = str_replace($extension, '', $name);
 
-        $name = Str::slug($name);
+	public static function slug($name)
+	{
+		$extension = self::getExtension($name);
+		$name = str_replace($extension, '', $name);
 
-        return $name . $extension;
-    }
+		$name = Str::slug($name);
 
-    /**
-     * Get the extension from the given name
-     * @param $name
-     * @return string
-     */
-    private static function getExtension($name)
-    {
-        return strtolower(substr($name, strrpos($name, '.')));
-    }
+		return $name . $extension;
+	}
+
+	/**
+	 * Get the extension from the given name
+	 * @param $name
+	 * @return string
+	 */
+	private static function getExtension($name)
+	{
+		return strtolower(substr($name, strrpos($name, '.')));
+	}
+
+
 }

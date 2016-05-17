@@ -7,44 +7,47 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class UploadMediaRequest extends FormRequest
 {
-    public function rules()
-    {
-        return [
-            'file' => ['required', 'max_size'],
-        ];
-    }
 
-    public function authorize()
-    {
-        return true;
-    }
+	public function rules()
+	{
+		return [
+			'file' => ['required', 'max_size'],
+		];
+	}
 
-    public function messages()
-    {
-        $bytes = config('asgard.media.config.max-total-size');
-        $size = $this->formatBytes($bytes);
+	public function authorize()
+	{
+		return true;
+	}
 
-        return [
-            'file.max_size' => trans('media::media.validation.max_size', ['size' => $size]),
-        ];
-    }
+	public function messages()
+	{
+		$bytes = Config::get('media.max-total-size');
+		$size = $this->formatBytes($bytes);
 
-    public function formatBytes($bytes, $precision = 2)
-    {
-        $units = [
-            trans('media::media.file-sizes.B'),
-            trans('media::media.file-sizes.KB'),
-            trans('media::media.file-sizes.MB'),
-            trans('media::media.file-sizes.GB'),
-            trans('media::media.file-sizes.TB'),
-        ];
+		return [
+			'file.max_size' => trans('media::media.validation.max_size', ['size' => $size]),
+		];
+	}
 
-        $bytes = max($bytes, 0);
-        $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
-        $pow = min($pow, count($units) - 1);
+	public function formatBytes($bytes, $precision = 2)
+	{
+		$units = [
+			trans('media::media.file-sizes.B'),
+			trans('media::media.file-sizes.KB'),
+			trans('media::media.file-sizes.MB'),
+			trans('media::media.file-sizes.GB'),
+			trans('media::media.file-sizes.TB'),
+		];
 
-        $bytes /= pow(1024, $pow);
+		$bytes = max($bytes, 0);
+		$pow = floor(($bytes ? log($bytes) : 0) / log(1024));
+		$pow = min($pow, count($units) - 1);
 
-        return round($bytes, $precision) . ' ' . $units[$pow];
-    }
+		$bytes /= pow(1024, $pow);
+
+		return round($bytes, $precision) . ' ' . $units[$pow];
+	}
+
+
 }

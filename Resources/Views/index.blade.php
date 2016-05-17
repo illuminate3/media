@@ -1,17 +1,17 @@
-@extends('layouts.master')
+@extends($theme_back)
 
-@section('content-header')
-<h1>
-    {{ trans('media::media.title.media') }}
-</h1>
-<ol class="breadcrumb">
-    <li><a href="{{ route('dashboard.index') }}"><i class="fa fa-dashboard"></i> {{ trans('core::core.breadcrumb.home') }}</a></li>
-    <li><i class="fa fa-camera"></i> {{ trans('media::media.breadcrumb.media') }}</li>
-</ol>
+
+{{-- Web site Title --}}
+@section('title')
+{{ Lang::choice('kotoba::cms.setting', 2) }} :: @parent
 @stop
 
 @section('styles')
-<link href="{!! Module::asset('media:css/dropzone.css') !!}" rel="stylesheet" type="text/css" />
+	<link href="{{ asset('assets/vendors/DataTables-1.10.7/plugins/integration/bootstrap/3/dataTables.bootstrap.css') }}" rel="stylesheet">
+	<link href="{{ asset('assets/vendors/DataTables-1.10.7/plugins/integration/bootstrap/3/dataTables.bootstrap.css') }}" rel="stylesheet">
+
+	<link href="{{ asset('assets/vendors/dropzone-4.3.0/dist/min/dropzone.min.css') }}" rel="stylesheet">
+
 <style>
 .dropzone {
     border: 1px dashed #CCC;
@@ -19,9 +19,49 @@
     margin-bottom: 20px;
 }
 </style>
+
 @stop
 
+@section('scripts')
+	<script src="{{ asset('assets/vendors/DataTables-1.10.7/media/js/jquery.dataTables.min.js') }}"></script>
+	<script src="{{ asset('assets/vendors/DataTables-1.10.7/plugins/integration/bootstrap/3/dataTables.bootstrap.min.js') }}"></script>
+
+	<script src="{{ asset('assets/vendors/dropzone-4.3.0/dist/min/dropzone.min.js') }}"></script>
+	<script src="{{ asset('assets/modules/media/js/init-dropzone.js') }}"></script>
+@stop
+
+@section('inline-scripts')
+$(document).ready(function() {
+oTable =
+	$('#table').DataTable({
+		stateSave: true,
+		'pageLength': 25
+	});
+});
+
+<?php $config = config('asgard.media.config'); ?>
+<script>
+    var maxFilesize = '<?php echo $config['max-file-size'] ?>',
+            acceptedFiles = '<?php echo $config['allowed-types'] ?>';
+</script>
+
+@stop
+
+
+
+{{-- Content --}}
 @section('content')
+
+
+<h1>
+    {{ trans('media::media.title.media') }}
+</h1>
+<ol class="breadcrumb">
+    <li><a href="/"><i class="fa fa-dashboard"></i> {{ trans('core::core.breadcrumb.home') }}</a></li>
+    <li><i class="fa fa-camera"></i> {{ trans('media::media.breadcrumb.media') }}</li>
+</ol>
+
+
 <div class="row">
     <div class="col-md-12">
         <form method="POST" class="dropzone">
@@ -88,33 +128,7 @@
         </div>
     </div>
 </div>
-@include('core::partials.delete-modal')
-@stop
 
-@section('scripts')
-<script src="{!! Module::asset('media:js/dropzone.js') !!}"></script>
-<?php $config = config('asgard.media.config'); ?>
-<script>
-    var maxFilesize = '<?php echo $config['max-file-size'] ?>',
-            acceptedFiles = '<?php echo $config['allowed-types'] ?>';
-</script>
-<script src="{!! Module::asset('media:js/init-dropzone.js') !!}"></script>
+@include('media.partials.delete-modal')
 
-<?php $locale = App::getLocale(); ?>
-<script type="text/javascript">
-    $(function () {
-        $('.data-table').dataTable({
-            "paginate": true,
-            "lengthChange": true,
-            "filter": true,
-            "sort": true,
-            "info": true,
-            "autoWidth": true,
-            "order": [[ 0, "desc" ]],
-            "language": {
-                "url": '<?php echo Module::asset("core:js/vendor/datatables/{$locale}.json") ?>'
-            }
-        });
-    });
-</script>
 @stop

@@ -7,20 +7,23 @@ use App\Modules\Media\Library\Image\ImageHandlerInterface;
 
 class Blur implements ImageHandlerInterface
 {
-    private $defaults = [
-        'amount' => 1,
-    ];
 
-    /**
-     * Handle the image manipulation request
-     * @param  \Intervention\Image\Image $image
-     * @param  array                     $options
-     * @return \Intervention\Image\Image
-     */
-    public function handle($image, $options)
-    {
-        $options = array_merge($this->defaults, $options);
+	private $defaults = [
+		'amount' => 1,
+	];
 
-        return $image->blur($options['amount']);
-    }
+	/**
+	 * Handle the image manipulation request
+	 * @param  \Intervention\Image\Image $image
+	 * @param  array                     $options
+	 * @return \Intervention\Image\Image
+	 */
+	public function handle($image, $options)
+	{
+		$options = array_merge($this->defaults, $options);
+
+		return $image->blur($options['amount']);
+	}
+
+
 }

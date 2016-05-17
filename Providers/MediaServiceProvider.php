@@ -4,6 +4,13 @@ namespace App\Modules\Media\Providers;
 
 //use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Validator;
+
+use App\Modules\Media\Console\RefreshThumbnailCommand;
+use App\Modules\Media\Http\Models\File;
+use App\Modules\Media\Http\Repositories\Eloquent\EloquentFileRepository;
+use App\Modules\Media\Http\Repositories\FileRepository;
+use App\Modules\Media\Library\Validators\MaxFolderSizeValidator;
 
 use App;
 use Config;
@@ -30,6 +37,10 @@ class MediaServiceProvider extends ServiceProvider
 
 		$this->registerNamespaces();
 		$this->registerProviders();
+		$this->app->booted(function () {
+			$this->registerBindings();
+		});
+		$this->registerCommands();
 
 	}
 
@@ -41,7 +52,7 @@ class MediaServiceProvider extends ServiceProvider
 	 */
 	protected function registerNamespaces()
 	{
-		View::addNamespace('Media', __DIR__.'/../Resources/Views/');
+		View::addNamespace('media', __DIR__.'/../Resources/Views/');
 	}
 
 
@@ -79,10 +90,12 @@ class MediaServiceProvider extends ServiceProvider
 		);
 */
 
+		$this->registerMaxFolderSizeValidator();
+
 		$app = $this->app;
 
-		$app->register('Codesleeve\LaravelStapler\Providers\L5ServiceProvider');
-		$app->register('Cviebrock\EloquentSluggable\SluggableServiceProvider');
+// 		$app->register('Codesleeve\LaravelStapler\Providers\L5ServiceProvider');
+// 		$app->register('Cviebrock\EloquentSluggable\SluggableServiceProvider');
 
 	}
 
@@ -98,7 +111,54 @@ class MediaServiceProvider extends ServiceProvider
 
 		$app->register('App\Modules\Media\Providers\RouteServiceProvider');
 //		$app->register('App\Modules\Media\Providers\WidgetServiceProvider');
+		$app->register('App\Modules\Media\Library\Image\ImageServiceProvider');
 
 	}
+
+
+	/**
+	 * Get the services provided by the provider.
+	 *
+	 * @return array
+	 */
+	public function provides()
+	{
+		return array();
+	}
+
+
+
+	private function registerBindings()
+	{
+		$this->app->bind(FileRepository::class, function ($app) {
+			return new EloquentFileRepository(new File(), $app['filesystem.disk']);
+		});
+	}
+
+	/**
+	 * Register all commands for this module
+	 */
+	private function registerCommands()
+	{
+		$this->registerRefreshCommand();
+	}
+
+	/**
+	 * Register the refresh thumbnails command
+	 */
+	private function registerRefreshCommand()
+	{
+		$this->app->bindShared('command.media.refresh', function ($app) {
+			return new RefreshThumbnailCommand($app['App\Modules\Media\Http\Repositories\FileRepository']);
+		});
+
+		$this->commands('command.media.refresh');
+	}
+
+	private function registerMaxFolderSizeValidator()
+	{
+		Validator::extend('max_size', 'App\Modules\Media\Library\Validators\MaxFolderSizeValidator@validateMaxSize');
+	}
+
 
 }

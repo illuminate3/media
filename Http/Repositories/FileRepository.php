@@ -2,7 +2,7 @@
 
 namespace App\Modules\Media\Http\Repositories;
 
-use App\Modules\Core\Repositories\Base\BaseRepository;
+use App\Modules\Core\Http\Repositories\Base\BaseRepository;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 

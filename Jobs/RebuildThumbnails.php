@@ -12,25 +12,28 @@ use Illuminate\Queue\SerializesModels;
 
 class RebuildThumbnails extends Job implements SelfHandling, ShouldQueue
 {
-    use InteractsWithQueue, SerializesModels;
 
-    /**
-     * @var Collection
-     */
-    private $paths;
+	use InteractsWithQueue, SerializesModels;
 
-    public function __construct(Collection $paths)
-    {
-        $this->paths = $paths;
-    }
+	/**
+	 * @var Collection
+	 */
+	private $paths;
 
-    public function handle()
-    {
-        $imagy = app('imagy');
+	public function __construct(Collection $paths)
+	{
+		$this->paths = $paths;
+	}
 
-        foreach ($this->paths as $path) {
-            app('log')->info('Generating thumbnails for path: ' . $path);
-            $imagy->createAll($path);
-        }
-    }
+	public function handle()
+	{
+		$imagy = app('imagy');
+
+		foreach ($this->paths as $path) {
+			app('log')->info('Generating thumbnails for path: ' . $path);
+			$imagy->createAll($path);
+		}
+	}
+
+
 }

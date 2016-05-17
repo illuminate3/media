@@ -5,107 +5,110 @@ namespace App\Modules\Media\Library\Image;
 
 class Thumbnail
 {
-    /**
-     * @var array
-     */
-    private $filters;
-    /**
-     * @var string
-     */
-    private $name;
 
-    /**
-     * @param $name
-     * @param $filters
-     */
-    private function __construct($name, $filters)
-    {
-        $this->filters = $filters;
-        $this->name = $name;
-    }
+	/**
+	 * @var array
+	 */
+	private $filters;
+	/**
+	 * @var string
+	 */
+	private $name;
 
-    /**
-     * @param $thumbnailDefinition
-     * @return static
-     */
-    public static function make($thumbnailDefinition)
-    {
-        $name = key($thumbnailDefinition);
+	/**
+	 * @param $name
+	 * @param $filters
+	 */
+	private function __construct($name, $filters)
+	{
+		$this->filters = $filters;
+		$this->name = $name;
+	}
 
-        return new static($name, $thumbnailDefinition[$name]);
-    }
+	/**
+	 * @param $thumbnailDefinition
+	 * @return static
+	 */
+	public static function make($thumbnailDefinition)
+	{
+		$name = key($thumbnailDefinition);
 
-    /**
-     * Make multiple thumbnail classes with the given array
-     * @param array $thumbnailDefinitions
-     * @return array
-     */
-    public static function makeMultiple(array $thumbnailDefinitions)
-    {
-        $thumbnails = [];
+		return new static($name, $thumbnailDefinition[$name]);
+	}
 
-        foreach ($thumbnailDefinitions as $name => $thumbnail) {
-            $thumbnails[] = self::make([$name => $thumbnail]);
-        }
+	/**
+	 * Make multiple thumbnail classes with the given array
+	 * @param array $thumbnailDefinitions
+	 * @return array
+	 */
+	public static function makeMultiple(array $thumbnailDefinitions)
+	{
+		$thumbnails = [];
 
-        return $thumbnails;
-    }
+		foreach ($thumbnailDefinitions as $name => $thumbnail) {
+			$thumbnails[] = self::make([$name => $thumbnail]);
+		}
 
-    /**
-     * Return the thumbnail name
-     * @return string
-     */
-    public function name()
-    {
-        return $this->name;
-    }
+		return $thumbnails;
+	}
 
-    /**
-     * @return array
-     */
-    public function filters()
-    {
-        return $this->filters;
-    }
+	/**
+	 * Return the thumbnail name
+	 * @return string
+	 */
+	public function name()
+	{
+		return $this->name;
+	}
 
-    /**
-     * Return the first width option found in the filters
-     * @return int
-     */
-    public function width()
-    {
-        return $this->getFirst('width');
-    }
+	/**
+	 * @return array
+	 */
+	public function filters()
+	{
+		return $this->filters;
+	}
 
-    /**
-     * Return the first height option found in the filters
-     * @return int
-     */
-    public function height()
-    {
-        return $this->getFirst('height');
-    }
+	/**
+	 * Return the first width option found in the filters
+	 * @return int
+	 */
+	public function width()
+	{
+		return $this->getFirst('width');
+	}
 
-    /**
-     * Get the thumbnail size in format: width x height
-     * @return string
-     */
-    public function size()
-    {
-        return $this->width() . 'x' . $this->height();
-    }
+	/**
+	 * Return the first height option found in the filters
+	 * @return int
+	 */
+	public function height()
+	{
+		return $this->getFirst('height');
+	}
 
-    /**
-     * Get the first found key in filters
-     * @param string $key
-     * @return int
-     */
-    private function getFirst($key)
-    {
-        foreach ($this->filters as $filter) {
-            if (isset($filter[$key])) {
-                return (int) $filter[$key];
-            }
-        }
-    }
+	/**
+	 * Get the thumbnail size in format: width x height
+	 * @return string
+	 */
+	public function size()
+	{
+		return $this->width() . 'x' . $this->height();
+	}
+
+	/**
+	 * Get the first found key in filters
+	 * @param string $key
+	 * @return int
+	 */
+	private function getFirst($key)
+	{
+		foreach ($this->filters as $filter) {
+			if (isset($filter[$key])) {
+				return (int) $filter[$key];
+			}
+		}
+	}
+
+
 }

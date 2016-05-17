@@ -3,7 +3,7 @@
 namespace App\Modules\Media\Http\Repositories\Eloquent;
 
 use Illuminate\Database\Eloquent\Collection;
-use App\Modules\Core\Repositories\Base\Eloquent\EloquentBaseRepository;
+use App\Modules\Core\Http\Repositories\Base\Eloquent\EloquentBaseRepository;
 use App\Modules\Media\Http\Models\File;
 use App\Modules\Media\Library\Helpers\FileHelper;
 use App\Modules\Media\Http\Repositories\FileRepository;
@@ -43,7 +43,7 @@ class EloquentFileRepository extends EloquentBaseRepository implements FileRepos
 
 		return $this->model->create([
 			'filename' => $fileName,
-			'path' => config('asgard.media.config.files-path') . "{$fileName}",
+			'path' => Config::get('media.files-path') . "{$fileName}",
 			'extension' => substr(strrchr($fileName, "."), 1),
 			'mimetype' => $file->getClientMimeType(),
 			'filesize' => $file->getFileInfo()->getSize(),

@@ -31,4 +31,5 @@ class DeleteRequest extends FormRequest {
 		];
 	}
 
+
 }

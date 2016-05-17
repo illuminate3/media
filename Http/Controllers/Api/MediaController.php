@@ -17,118 +17,121 @@ use App\Modules\Media\Events\FileWasUploaded;
 
 use App\Modules\Media\Library\Image\Imagy;
 
-use Modules\Media\Services\FileService;
+use App\Modules\Media\Library\Services\FileService;
 
 
 class MediaController extends Controller {
-    /**
-     * @var FileService
-     */
-    private $fileService;
-    /**
-     * @var FileRepository
-     */
-    private $file;
-    /**
-     * @var Imagy
-     */
-    private $imagy;
 
-    public function __construct(FileService $fileService, FileRepository $file, Imagy $imagy)
-    {
-        $this->fileService = $fileService;
-        $this->file = $file;
-        $this->imagy = $imagy;
-    }
+	/**
+	 * @var FileService
+	 */
+	private $fileService;
+	/**
+	 * @var FileRepository
+	 */
+	private $file;
+	/**
+	 * @var Imagy
+	 */
+	private $imagy;
 
-    public function all()
-    {
-        $files = $this->file->all();
+	public function __construct(FileService $fileService, FileRepository $file, Imagy $imagy)
+	{
+		$this->fileService = $fileService;
+		$this->file = $file;
+		$this->imagy = $imagy;
+	}
 
-        return [
-            'count' => $files->count(),
-            'data' => $files,
-        ];
-    }
+	public function all()
+	{
+		$files = $this->file->all();
 
-    /**
-     * Store a newly created resource in storage.
-     * @param  UploadMediaRequest $request
-     * @return Response
-     */
-    public function store(UploadMediaRequest $request)
-    {
-        $savedFile = $this->fileService->store($request->file('file'));
+		return [
+			'count' => $files->count(),
+			'data' => $files,
+		];
+	}
 
-        if (is_string($savedFile)) {
-            return Response::json(['error' => $savedFile], 409);
-        }
+	/**
+	 * Store a newly created resource in storage.
+	 * @param  UploadMediaRequest $request
+	 * @return Response
+	 */
+	public function store(UploadMediaRequest $request)
+	{
+		$savedFile = $this->fileService->store($request->file('file'));
 
-        event(new FileWasUploaded($savedFile));
+		if (is_string($savedFile)) {
+			return Response::json(['error' => $savedFile], 409);
+		}
 
-        return Response::json($savedFile->toArray());
-    }
+		event(new FileWasUploaded($savedFile));
 
-    /**
-     * Link the given entity with a media file
-     * @param Request $request
-     */
-    public function linkMedia(Request $request)
-    {
-        $mediaId = $request->get('mediaId');
-        $entityClass = $request->get('entityClass');
-        $entityId = $request->get('entityId');
-        $order = $request->get('order');
+		return Response::json($savedFile->toArray());
+	}
 
-        $entity = $entityClass::find($entityId);
-        $zone = $request->get('zone');
-        $entity->files()->attach($mediaId, ['imageable_type' => $entityClass, 'zone' => $zone, 'order' => $order]);
-        $imageable = DB::table('media__imageables')->whereFileId($mediaId)->whereZone($zone)->whereImageableType($entityClass)->first();
-        $file = $this->file->find($imageable->file_id);
+	/**
+	 * Link the given entity with a media file
+	 * @param Request $request
+	 */
+	public function linkMedia(Request $request)
+	{
+		$mediaId = $request->get('mediaId');
+		$entityClass = $request->get('entityClass');
+		$entityId = $request->get('entityId');
+		$order = $request->get('order');
 
-        $thumbnailPath = $this->imagy->getThumbnail($file->path, 'mediumThumb');
+		$entity = $entityClass::find($entityId);
+		$zone = $request->get('zone');
+		$entity->files()->attach($mediaId, ['imageable_type' => $entityClass, 'zone' => $zone, 'order' => $order]);
+		$imageable = DB::table('media__imageables')->whereFileId($mediaId)->whereZone($zone)->whereImageableType($entityClass)->first();
+		$file = $this->file->find($imageable->file_id);
 
-        event(new FileWasLinked($file, $entity));
+		$thumbnailPath = $this->imagy->getThumbnail($file->path, 'mediumThumb');
 
-        return Response::json([
-            'error' => false,
-            'message' => 'The link has been added.',
-            'result' => ['path' => $thumbnailPath, 'imageableId' => $imageable->id]
-        ]);
-    }
+		event(new FileWasLinked($file, $entity));
 
-    /**
-     * Remove the record in the media__imageables table for the given id
-     * @param Request $request
-     */
-    public function unlinkMedia(Request $request)
-    {
-        $imageableId = $request->get('imageableId');
-        $deleted = DB::table('media__imageables')->whereId($imageableId)->delete();
-        if (! $deleted) {
-            return Response::json(['error' => true, 'message' => 'The file was not found.']);
-        }
+		return Response::json([
+			'error' => false,
+			'message' => 'The link has been added.',
+			'result' => ['path' => $thumbnailPath, 'imageableId' => $imageable->id]
+		]);
+	}
 
-        event(new FileWasUnlinked($imageableId));
+	/**
+	 * Remove the record in the media__imageables table for the given id
+	 * @param Request $request
+	 */
+	public function unlinkMedia(Request $request)
+	{
+		$imageableId = $request->get('imageableId');
+		$deleted = DB::table('media__imageables')->whereId($imageableId)->delete();
+		if (! $deleted) {
+			return Response::json(['error' => true, 'message' => 'The file was not found.']);
+		}
 
-        return Response::json(['error' => false, 'message' => 'The link has been removed.']);
-    }
+		event(new FileWasUnlinked($imageableId));
 
-    /**
-     * Sort the record in the media__imageables table for the given array
-     * @param Request $request
-     */
-    public function sortMedia(Request $request)
-    {
-        $imageableIdArray = $request->get('sortable');
+		return Response::json(['error' => false, 'message' => 'The link has been removed.']);
+	}
 
-        $order = 1;
+	/**
+	 * Sort the record in the media__imageables table for the given array
+	 * @param Request $request
+	 */
+	public function sortMedia(Request $request)
+	{
+		$imageableIdArray = $request->get('sortable');
 
-        foreach ($imageableIdArray as $id) {
-            DB::table('media__imageables')->whereId($id)->update(['order' => $order]);
-            $order++;
-        }
+		$order = 1;
 
-        return Response::json(['error' => false, 'message' => 'The items have been reorder.']);
-    }
+		foreach ($imageableIdArray as $id) {
+			DB::table('media__imageables')->whereId($id)->update(['order' => $order]);
+			$order++;
+		}
+
+		return Response::json(['error' => false, 'message' => 'The items have been reorder.']);
+	}
+
+
 }

@@ -7,20 +7,23 @@ use App\Modules\Media\Library\Image\ImageHandlerInterface;
 
 class Sharpen implements ImageHandlerInterface
 {
-    private $defaults = [
-        'amount' => 10,
-    ];
 
-    /**
-     * Handle the image manipulation request
-     * @param  \Intervention\Image\Image $image
-     * @param  array                     $options
-     * @return \Intervention\Image\Image
-     */
-    public function handle($image, $options)
-    {
-        $options = array_merge($this->defaults, $options);
+	private $defaults = [
+		'amount' => 10,
+	];
 
-        return $image->sharpen($options['amount']);
-    }
+	/**
+	 * Handle the image manipulation request
+	 * @param  \Intervention\Image\Image $image
+	 * @param  array                     $options
+	 * @return \Intervention\Image\Image
+	 */
+	public function handle($image, $options)
+	{
+		$options = array_merge($this->defaults, $options);
+
+		return $image->sharpen($options['amount']);
+	}
+
+
 }

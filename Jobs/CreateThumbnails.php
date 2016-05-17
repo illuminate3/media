@@ -12,24 +12,27 @@ use App\Modules\Media\Library\ValueObjects\MediaPath;
 
 class CreateThumbnails extends Job implements SelfHandling, ShouldQueue
 {
-    use InteractsWithQueue, SerializesModels;
 
-    /**
-     * @var MediaPath
-     */
-    private $path;
+	use InteractsWithQueue, SerializesModels;
 
-    public function __construct(MediaPath $path)
-    {
-        $this->path = $path;
-    }
+	/**
+	 * @var MediaPath
+	 */
+	private $path;
 
-    public function handle()
-    {
-        $imagy = app('imagy');
+	public function __construct(MediaPath $path)
+	{
+		$this->path = $path;
+	}
 
-        app('log')->info('Generating thumbnails for path: ' . $this->path);
+	public function handle()
+	{
+		$imagy = app('imagy');
 
-        $imagy->createAll($this->path);
-    }
+		app('log')->info('Generating thumbnails for path: ' . $this->path);
+
+		$imagy->createAll($this->path);
+	}
+
+
 }

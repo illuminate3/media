@@ -9,38 +9,41 @@ use App\Modules\Media\Library\Image\Intervention\InterventionFactory;
 
 class ImageServiceProvider extends ServiceProvider
 {
-    /**
-     * Register the service provider.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        $this->app->bind(
-            'Modules\Media\Image\ImageFactoryInterface',
-            'Modules\Media\Image\Intervention\InterventionFactory'
-        );
 
-        $this->app['imagy'] = $this->app->share(function ($app) {
-            $factory = new InterventionFactory();
-            $thumbnailManager = new ThumbnailsManager($app['config'], $app['modules']);
+	/**
+	 * Register the service provider.
+	 *
+	 * @return void
+	 */
+	public function register()
+	{
+		$this->app->bind(
+			'App\Modules\Media\Library\Image\ImageFactoryInterface',
+			'App\Modules\Media\Library\Image\Intervention\InterventionFactory'
+		);
 
-            return new Imagy($factory, $thumbnailManager, $app['config']);
-        });
+		$this->app['imagy'] = $this->app->share(function ($app) {
+			$factory = new InterventionFactory();
+			$thumbnailManager = new ThumbnailsManager($app['config'], $app['modules']);
 
-        $this->app->booting(function () {
-            $loader = AliasLoader::getInstance();
-            $loader->alias('Imagy', 'Modules\Media\Image\Facade\Imagy');
-        });
-    }
+			return new Imagy($factory, $thumbnailManager, $app['config']);
+		});
 
-    /**
-     * Get the services provided by the provider.
-     *
-     * @return array
-     */
-    public function provides()
-    {
-        return ['imagy'];
-    }
+		$this->app->booting(function () {
+			$loader = AliasLoader::getInstance();
+			$loader->alias('Imagy', 'App\Modules\Media\Library\Image\Facade\Imagy');
+		});
+	}
+
+	/**
+	 * Get the services provided by the provider.
+	 *
+	 * @return array
+	 */
+	public function provides()
+	{
+		return ['imagy'];
+	}
+
+
 }

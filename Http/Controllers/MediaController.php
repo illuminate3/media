@@ -4,13 +4,16 @@ namespace App\Modules\Media\Http\Controllers;
 
 //use Modules\Core\Http\Controllers\Admin\AdminBaseController;
 
-use Illuminate\Contracts\Config\Repository;
+//use Illuminate\Contracts\Config\Repository;
+
 use App\Modules\Media\Http\Models\File;
 use App\Modules\Media\Http\Requests\UpdateMediaRequest;
 use App\Modules\Media\Library\Image\Imagy;
 use App\Modules\Media\Library\Image\ThumbnailsManager;
-//use App\Modules\Media\Http\Repositories\FileRepository;
+use App\Modules\Media\Http\Repositories\FileRepository;
 
+use Config;
+use Theme;
 
 class MediaController extends FilexController
 {
@@ -21,10 +24,6 @@ class MediaController extends FilexController
 	 */
 	private $file;
 	/**
-	 * @var Repository
-	 */
-	private $config;
-	/**
 	 * @var Imagy
 	 */
 	private $imagy;
@@ -34,16 +33,14 @@ class MediaController extends FilexController
 	private $thumbnailsManager;
 
 	public function __construct(
-//			FileRepository $file,
-			Repository $config,
+			FileRepository $file,
 			Imagy $imagy,
 			ThumbnailsManager $thumbnailsManager
 		)
 	{
 		parent::__construct();
 
-//		$this->file = $file;
-		$this->config = $config;
+		$this->file = $file;
 		$this->imagy = $imagy;
 		$this->thumbnailsManager = $thumbnailsManager;
 	}
@@ -56,10 +53,12 @@ class MediaController extends FilexController
 	public function index()
 	{
 		$files = File::all();
-dd($files);
-		$config = $this->config->get('asgard.media.config');
+//dd($files);
+		$config = Config::get('media.config');
 
-		return view('media::admin.index', compact('files', 'config'));
+//		return view('media::admin.index', compact('files', 'config'));
+//		return Theme::View('media::index', compact('files', 'config'));
+		return Theme::View('modules.media.index', compact('files', 'config'));
 	}
 
 	/**

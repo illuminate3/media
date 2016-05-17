@@ -10,31 +10,34 @@ use App\Modules\Media\Http\Repositories\FileRepository;
 
 class RefreshThumbnailCommand extends Command
 {
-    use DispatchesJobs;
-    protected $name = 'asgard:media:refresh';
-    protected $description = 'Create and or refresh the thumbnails';
-    /**
-     * @var FileRepository
-     */
-    private $file;
 
-    public function __construct(FileRepository $file)
-    {
-        parent::__construct();
-        $this->file = $file;
-    }
+	use DispatchesJobs;
+	protected $name = 'asgard:media:refresh';
+	protected $description = 'Create and or refresh the thumbnails';
+	/**
+	 * @var FileRepository
+	 */
+	private $file;
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
-    public function fire()
-    {
-        $this->line('Preparing to regenerate all thumbnails...');
+	public function __construct(FileRepository $file)
+	{
+		parent::__construct();
+		$this->file = $file;
+	}
 
-        $this->dispatch(new RebuildThumbnails($this->file->all()->pluck('path')));
+	/**
+	 * Execute the console command.
+	 *
+	 * @return mixed
+	 */
+	public function fire()
+	{
+		$this->line('Preparing to regenerate all thumbnails...');
 
-        $this->info('All thumbnails refreshed');
-    }
+		$this->dispatch(new RebuildThumbnails($this->file->all()->pluck('path')));
+
+		$this->info('All thumbnails refreshed');
+	}
+
+
 }
