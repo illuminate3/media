@@ -9,6 +9,8 @@ use App\Modules\Media\Library\Helpers\FileHelper;
 use App\Modules\Media\Http\Repositories\FileRepository;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
+use Config;
+
 
 class EloquentFileRepository extends EloquentBaseRepository implements FileRepository
 {

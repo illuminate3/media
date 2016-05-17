@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Media\Services;
+namespace App\Modules\Media\Library\Services;
 
 use Illuminate\Contracts\Filesystem\Factory;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -10,6 +10,8 @@ use App\Modules\Media\Http\Models\File;
 use App\Modules\Media\Jobs\CreateThumbnails;
 use App\Modules\Media\Http\Repositories\FileRepository;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+
+use Config;
 
 
 class FileService
@@ -26,7 +28,10 @@ class FileService
 	 */
 	private $filesystem;
 
-	public function __construct(FileRepository $file, Factory $filesystem)
+	public function __construct (
+		FileRepository $file,
+		Factory $filesystem
+		)
 	{
 		$this->file = $file;
 		$this->filesystem = $filesystem;
@@ -36,7 +41,7 @@ class FileService
 	 * @param  UploadedFile $file
 	 * @return mixed
 	 */
-	public function store(UploadedFile $file)
+	public function store (UploadedFile $file)
 	{
 		$savedFile = $this->file->createFromFile($file);
 
@@ -56,7 +61,7 @@ class FileService
 	 * Create the necessary thumbnails for the given file
 	 * @param $savedFile
 	 */
-	private function createThumbnails(File $savedFile)
+	private function createThumbnails (File $savedFile)
 	{
 		$this->dispatch(new CreateThumbnails($savedFile->path));
 	}
@@ -65,7 +70,7 @@ class FileService
 	 * @param string $path
 	 * @return string
 	 */
-	private function getDestinationPath($path)
+	private function getDestinationPath ($path)
 	{
 		if ($this->getConfiguredFilesystem() === 'local') {
 			return basename(public_path()) . $path;
@@ -77,7 +82,7 @@ class FileService
 	/**
 	 * @return string
 	 */
-	private function getConfiguredFilesystem()
+	private function getConfiguredFilesystem ()
 	{
 		return Config::get('media.filesystem');
 	}

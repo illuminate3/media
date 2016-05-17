@@ -32,7 +32,7 @@
         window.includeMedia = function (mediaId) {
             $.ajax({
                 type: 'POST',
-                url: '{{ route('api.media.link') }}',
+                url: '{{ route('admin.api.media.link') }}',
                 data: {
                     'mediaId': mediaId,
                     '_token': '{{ csrf_token() }}',
@@ -84,7 +84,7 @@
             var imageableId = $(this).data('id');
             $.ajax({
                 type: 'POST',
-                url: '{{ route('api.media.unlink') }}',
+                url: '{{ route('admin.api.media.unlink') }}',
                 data: {
                     'imageableId': imageableId,
                     '_token': '{{ csrf_token() }}'

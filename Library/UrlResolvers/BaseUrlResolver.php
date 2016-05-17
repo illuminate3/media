@@ -6,6 +6,8 @@ use Illuminate\Contracts\Filesystem\Factory;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\AwsS3v3\AwsS3Adapter;
 
+use Config;
+
 
 class BaseUrlResolver
 {

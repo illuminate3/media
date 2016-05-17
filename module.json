@@ -3,6 +3,6 @@
 	"slug": "media",
 	"version": "1.0",
 	"description": "Documents, Files and Images Manager",
-	"order": 10,
+	"order": 1,
 	"enabled": true
 }

@@ -35,7 +35,11 @@ class MediaController extends Controller {
 	 */
 	private $imagy;
 
-	public function __construct(FileService $fileService, FileRepository $file, Imagy $imagy)
+	public function __construct(
+		FileService $fileService,
+		FileRepository $file,
+		Imagy $imagy
+		)
 	{
 		$this->fileService = $fileService;
 		$this->file = $file;
@@ -57,7 +61,9 @@ class MediaController extends Controller {
 	 * @param  UploadMediaRequest $request
 	 * @return Response
 	 */
-	public function store(UploadMediaRequest $request)
+	public function store (
+		UploadMediaRequest $request
+		)
 	{
 		$savedFile = $this->fileService->store($request->file('file'));
 

@@ -6,6 +6,8 @@ use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
+use Config;
+
 
 class MaxFolderSizeValidator
 {

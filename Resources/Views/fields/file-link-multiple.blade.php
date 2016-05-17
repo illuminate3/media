@@ -47,7 +47,7 @@
         window.includeMedia = function (mediaId) {
             $.ajax({
                 type: 'POST',
-                url: '{{ route('api.media.link') }}',
+                url: '{{ route('admin.api.media.link') }}',
                 data: {
                     'mediaId': mediaId,
                     '_token': '{{ csrf_token() }}',
@@ -101,7 +101,7 @@
                     pictureWrapper = $(this).parent();
             $.ajax({
                 type: 'POST',
-                url: '{{ route('api.media.unlink') }}',
+                url: '{{ route('admin.api.media.unlink') }}',
                 data: {
                     'imageableId': imageableId,
                     '_token': '{{ csrf_token() }}'
@@ -132,7 +132,7 @@
                 $.ajax({
                     global: false, /* leave it to false */
                     type: 'POST',
-                    url: '{{ route('api.media.sort') }}',
+                    url: '{{ route('admin.api.media.sort') }}',
                     data: {
                         'entityClass': '{{ $entityClass }}',
                         'zone': '{{ $zone }}',

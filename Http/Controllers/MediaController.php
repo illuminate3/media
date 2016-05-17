@@ -54,11 +54,17 @@ class MediaController extends FilexController
 	{
 		$files = File::all();
 //dd($files);
-		$config = Config::get('media.config');
 
-//		return view('media::admin.index', compact('files', 'config'));
-//		return Theme::View('media::index', compact('files', 'config'));
-		return Theme::View('modules.media.index', compact('files', 'config'));
+		$max_file_size = Config::get('media.max-file-size');
+		$allowed_types = Config::get('media.allowed-types');
+//dd($max_file_zie);
+
+		return Theme::View('modules.media.index',
+			compact(
+				'files',
+				'max_file_size',
+				'allowed_types'
+				));
 	}
 
 	/**

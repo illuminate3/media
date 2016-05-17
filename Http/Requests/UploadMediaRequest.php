@@ -4,6 +4,8 @@ namespace App\Modules\Media\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+use Config;
+
 
 class UploadMediaRequest extends FormRequest
 {
