@@ -30,12 +30,12 @@ $router->bind('media', function ($id) {
 
 Route::group(['prefix' => 'admin'], function() {
 
-	Route::get('media', ['as' => 'admin.media.media.index', 'uses' => 'MediaController@index']);
-	Route::get('media/create', ['as' => 'admin.media.media.create', 'uses' => 'MediaController@create']);
-	Route::post('media', ['as' => 'admin.media.media.store', 'uses' => 'MediaController@store']);
-	Route::get('media/{media}/edit', ['as' => 'admin.media.media.edit', 'uses' => 'MediaController@edit']);
-	Route::put('media/{media}', ['as' => 'admin.media.media.update', 'uses' => 'MediaController@update']);
-	Route::delete('media/{media}', ['as' => 'admin.media.media.destroy', 'uses' => 'MediaController@destroy']);
+	Route::get('media', ['as' => 'admin.media.index', 'uses' => 'MediaController@index']);
+	Route::get('media/create', ['as' => 'admin.media.create', 'uses' => 'MediaController@create']);
+	Route::post('media', ['as' => 'admin.media.store', 'uses' => 'MediaController@store']);
+	Route::get('media/{media}/edit', ['as' => 'admin.media.edit', 'uses' => 'MediaController@edit']);
+	Route::put('media/{media}', ['as' => 'admin.media.update', 'uses' => 'MediaController@update']);
+	Route::delete('media/{media}', ['as' => 'admin.media.destroy', 'uses' => 'MediaController@destroy']);
 
 	Route::get('media-grid/index', ['uses' => 'MediaGridController@index', 'as' => 'media.grid.select']);
 	Route::get('media-grid/ckIndex', ['uses' => 'MediaGridController@ckIndex', 'as' => 'media.grid.ckeditor']);

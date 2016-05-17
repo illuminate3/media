@@ -12,98 +12,101 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class EloquentFileRepository extends EloquentBaseRepository implements FileRepository
 {
-    /**
-     * Update a resource
-     * @param  File  $file
-     * @param $data
-     * @return mixed
-     */
-    public function update($file, $data)
-    {
-        $file->update($data);
 
-        return $file;
-    }
+	/**
+	 * Update a resource
+	 * @param  File  $file
+	 * @param $data
+	 * @return mixed
+	 */
+	public function update($file, $data)
+	{
+		$file->update($data);
 
-    /**
-     * Create a file row from the given file
-     * @param  UploadedFile $file
-     * @return mixed
-     */
-    public function createFromFile(UploadedFile $file)
-    {
-        $fileName = FileHelper::slug($file->getClientOriginalName());
+		return $file;
+	}
 
-        $exists = $this->model->whereFilename($fileName)->first();
+	/**
+	 * Create a file row from the given file
+	 * @param  UploadedFile $file
+	 * @return mixed
+	 */
+	public function createFromFile(UploadedFile $file)
+	{
+		$fileName = FileHelper::slug($file->getClientOriginalName());
 
-        if ($exists) {
-            $fileName = $this->getNewUniqueFilename($fileName);
-        }
+		$exists = $this->model->whereFilename($fileName)->first();
 
-        return $this->model->create([
-            'filename' => $fileName,
-            'path' => config('asgard.media.config.files-path') . "{$fileName}",
-            'extension' => substr(strrchr($fileName, "."), 1),
-            'mimetype' => $file->getClientMimeType(),
-            'filesize' => $file->getFileInfo()->getSize(),
-            'folder_id' => 0,
-        ]);
-    }
+		if ($exists) {
+			$fileName = $this->getNewUniqueFilename($fileName);
+		}
 
-    public function destroy($file)
-    {
-        $file->delete();
-    }
+		return $this->model->create([
+			'filename' => $fileName,
+			'path' => config('asgard.media.config.files-path') . "{$fileName}",
+			'extension' => substr(strrchr($fileName, "."), 1),
+			'mimetype' => $file->getClientMimeType(),
+			'filesize' => $file->getFileInfo()->getSize(),
+			'folder_id' => 0,
+		]);
+	}
 
-    /**
-     * Find a file for the entity by zone
-     * @param $zone
-     * @param object $entity
-     * @return object
-     */
-    public function findFileByZoneForEntity($zone, $entity)
-    {
-        foreach ($entity->files as $file) {
-            if ($file->pivot->zone == $zone) {
-                return $file;
-            }
-        }
+	public function destroy($file)
+	{
+		$file->delete();
+	}
 
-        return '';
-    }
+	/**
+	 * Find a file for the entity by zone
+	 * @param $zone
+	 * @param object $entity
+	 * @return object
+	 */
+	public function findFileByZoneForEntity($zone, $entity)
+	{
+		foreach ($entity->files as $file) {
+			if ($file->pivot->zone == $zone) {
+				return $file;
+			}
+		}
 
-    /**
-     * Find multiple files for the given zone and entity
-     * @param zone $zone
-     * @param object $entity
-     * @return object
-     */
-    public function findMultipleFilesByZoneForEntity($zone, $entity)
-    {
-        $files = [];
-        foreach ($entity->files as $file) {
-            if ($file->pivot->zone == $zone) {
-                $files[] = $file;
-            }
-        }
+		return '';
+	}
 
-        return new Collection($files);
-    }
+	/**
+	 * Find multiple files for the given zone and entity
+	 * @param zone $zone
+	 * @param object $entity
+	 * @return object
+	 */
+	public function findMultipleFilesByZoneForEntity($zone, $entity)
+	{
+		$files = [];
+		foreach ($entity->files as $file) {
+			if ($file->pivot->zone == $zone) {
+				$files[] = $file;
+			}
+		}
 
-    /**
-     * @param $fileName
-     * @return string
-     */
-    private function getNewUniqueFilename($fileName)
-    {
-        $fileNameOnly = pathinfo($fileName, PATHINFO_FILENAME);
-        $model = $this->model->where('filename', 'LIKE', "$fileNameOnly%")->orderBy('created_at', 'desc')->first();
-        $latestFilename = pathinfo($model->filename, PATHINFO_FILENAME);
-        $extension = pathinfo($model->filename, PATHINFO_EXTENSION);
+		return new Collection($files);
+	}
 
-        $version = substr($latestFilename, -1, strpos($latestFilename, '_'));
-        $version++;
+	/**
+	 * @param $fileName
+	 * @return string
+	 */
+	private function getNewUniqueFilename($fileName)
+	{
+		$fileNameOnly = pathinfo($fileName, PATHINFO_FILENAME);
+		$model = $this->model->where('filename', 'LIKE', "$fileNameOnly%")->orderBy('created_at', 'desc')->first();
+		$latestFilename = pathinfo($model->filename, PATHINFO_FILENAME);
+		$extension = pathinfo($model->filename, PATHINFO_EXTENSION);
 
-        return $fileNameOnly . '_' . $version . '.' . $extension;
-    }
+		$version = substr($latestFilename, -1, strpos($latestFilename, '_'));
+		$version++;
+
+		return $fileNameOnly . '_' . $version . '.' . $extension;
+	}
+
+
 }

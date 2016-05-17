@@ -11,7 +11,7 @@ use App\Modules\Media\Http\Repositories\FileRepository;
 use Modules\Media\Validators\MaxFolderSizeValidator;
 
 
-class MediaServiceProvider extends ServiceProvider
+class ~MediaServiceProvider extends ServiceProvider
 {
     /**
      * Indicates if loading of the provider is deferred.
