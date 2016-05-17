@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Media\Helpers;
+namespace App\Modules\Media\Library\Helpers;
 
 use Illuminate\Support\Str;
 

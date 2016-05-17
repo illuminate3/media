@@ -87,7 +87,11 @@ class MediaController extends FilexController
 	{
 		$thumbnails = $this->thumbnailsManager->all();
 
-		return view('media::admin.edit', compact('file', 'thumbnails'));
+		return Theme::View('modules.media.edit',
+			compact(
+				'file',
+				'thumbnails'
+				));
 	}
 
 	/**

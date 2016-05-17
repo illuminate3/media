@@ -2,7 +2,8 @@
 
 namespace App\Modules\Media\Library\Image;
 
-use Illuminate\Contracts\Config\Repository;
+//use Illuminate\Contracts\Config\Repository;
+use Config;
 
 
 class ThumbnailsManager
@@ -20,11 +21,11 @@ class ThumbnailsManager
 	/**
 	 * @param Repository $config
 	 */
-	public function __construct(Repository $config)
-	{
-		$this->module = app('modules');
-		$this->config = $config;
-	}
+// 	public function __construct(Repository $config)
+// 	{
+// 		$this->module = app('modules');
+// 		$this->config = $config;
+// 	}
 
 	/**
 	 * Return all thumbnails for all modules
@@ -33,12 +34,13 @@ class ThumbnailsManager
 	public function all()
 	{
 		$thumbnails = [];
-		foreach ($this->module->enabled() as $enabledModule) {
-			$configuration = $this->config->get(strtolower('asgard.' . $enabledModule->getName()) . '.thumbnails');
-			if (!is_null($configuration)) {
-				$thumbnails = array_merge($thumbnails, Thumbnail::makeMultiple($configuration));
-			}
-		}
+// 		foreach ($this->module->enabled() as $enabledModule) {
+// 			$configuration = Config::get('thumbnails');
+// 			if (!is_null($configuration)) {
+// 				$thumbnails = array_merge($thumbnails, Thumbnail::makeMultiple($configuration));
+// 			}
+// 		}
+		$thumbnails = Config::get('thumbnails');
 
 		return $thumbnails;
 	}

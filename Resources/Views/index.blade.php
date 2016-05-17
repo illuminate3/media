@@ -92,35 +92,35 @@ var Asgard = {
 			</tr>
 		</thead>
 		<tbody>
-			<?php if ($files): ?>
-				<?php foreach ($files as $file): ?>
+			@if ($files)
+				@foreach ($files as $file)
 					<tr>
 						<td>
-							<?php if ($file->isImage()): ?>
+							@if ($file->isImage())
 								<img src="{{ Imagy::getThumbnail($file->path, 'smallThumb') }}" alt=""/>
-							<?php else: ?>
+							@else
 								<i class="fa fa-file" style="font-size: 20px;"></i>
-							<?php endif; ?>
+							@endif
 						</td>
 						<td>
-							<a href="{{ route('admin.media.media.edit', [$file->id]) }}">
+							<a href="{{ route('admin.media.edit', [$file->id]) }}">
 								{{ $file->filename }}
 							</a>
 						</td>
 						<td>
-							<a href="{{ route('admin.media.media.edit', [$file->id]) }}">
+							<a href="{{ route('admin.media.edit', [$file->id]) }}">
 								{{ $file->created_at }}
 							</a>
 						</td>
 						<td>
 							<div class="btn-group">
-								<a href="{{ route('admin.media.media.edit', [$file->id]) }}" class="btn btn-default btn-flat"><i class="fa fa-pencil"></i></a>
-								<button class="btn btn-danger btn-flat" data-toggle="modal" data-target="#modal-delete-confirmation" data-action-target="{{ route('admin.media.media.destroy', [$file->id]) }}"><i class="fa fa-trash"></i></button>
+								<a href="{{ route('admin.media.edit', [$file->id]) }}" class="btn btn-default btn-flat"><i class="fa fa-pencil"></i></a>
+								<button class="btn btn-danger btn-flat" data-toggle="modal" data-target="#modal-delete-confirmation" data-action-target="{{ route('admin.media.destroy', [$file->id]) }}"><i class="fa fa-trash"></i></button>
 							</div>
 						</td>
 					</tr>
-				<?php endforeach; ?>
-			<?php endif; ?>
+				@endforeach
+			@endif
 		</tbody>
 	</table>
 

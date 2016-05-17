@@ -2,7 +2,7 @@
 
 namespace App\Modules\Media\Providers;
 
-//use Illuminate\Foundation\AliasLoader;
+use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
 
@@ -83,16 +83,23 @@ class MediaServiceProvider extends ServiceProvider
 //			__DIR__ . '/../Resources/Assets/Views/Widgets' => public_path('themes/') . Theme::getActive() . '/views/widgets/',
 		], 'views');
 
-/*
 		AliasLoader::getInstance()->alias(
-			'Menus',
-			'TypiCMS\Modules\Menus\Facades\Facade'
+			'Image',
+			'Intervention\Image\Facades\Image'
 		);
-*/
+		AliasLoader::getInstance()->alias(
+			'Imagy',
+			'App\Modules\Media\Library\Image\Facade\Imagy'
+		);
+		AliasLoader::getInstance()->alias(
+			'LaravelLocalization',
+			'Mcamara\LaravelLocalization\Facades\LaravelLocalization'
+		);
 
 		$this->registerMaxFolderSizeValidator();
 
 		$app = $this->app;
+//		$app->register('Mcamara\LaravelLocalization\Facades\LaravelLocalization');
 
 // 		$app->register('Codesleeve\LaravelStapler\Providers\L5ServiceProvider');
 // 		$app->register('Cviebrock\EloquentSluggable\SluggableServiceProvider');
